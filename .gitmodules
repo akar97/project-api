@@ -1,0 +1,3 @@
+[submodule "project-core"]
+	path = project-core
+	url = https://github.com/akar97/project-core.git
