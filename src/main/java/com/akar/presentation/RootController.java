@@ -1,5 +1,6 @@
 package com.akar.presentation;
 
+import com.akar.entity.UserEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,10 @@ public class RootController {
 
     @GetMapping("/test")
     public String returnTestString(){
-        return "test";
+        UserEntity userEntity = UserEntity.builder()
+                .name("test")
+                .build();
+
+        return userEntity.toString();
     }
 }

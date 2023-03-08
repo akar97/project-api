@@ -1,5 +1,5 @@
 plugins {
-	id 'java'
+	id 'java-library'
 	id 'org.springframework.boot' version '2.7.9'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
@@ -18,13 +18,37 @@ repositories {
 	mavenCentral()
 }
 
+bootJar{
+	enabled = true;
+}
+
+jar{
+	enabled = false;
+}
+
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation project(':project-core')
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+subprojects {
+	apply plugin: 'java-library' //gradle 7이상에는 java-library 7이하는 java 설정
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+
+	group = 'com.akar'
+	version '1.0-SNAPSHOT'
+
+	sourceCompatibility = '1.8'
+	targetCompatibility = '1.8'
+
+	repositories {
+		mavenCentral()
+	}
+	test {
+		useJUnitPlatform()
+	}
 }
